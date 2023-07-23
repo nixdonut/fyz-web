@@ -1,0 +1,53 @@
+{% extends "main/header.html" %}
+
+{% block content %}      
+
+{% load crispy_forms_tags %}
+
+{% if user.is_authenticated %}
+
+<div class="container">
+    <div id="progressdiv">
+        <h1><u>Progress 🥇</u></h1>
+        <br>
+        <h2>Algebra (Level {{ algebra_level }})</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:{{ algebra_percent }}%"></div>
+        </div>
+        <h6>{{ algebra_done }}/{{ algebra_total }}</h6>
+        <h2>Combinatorics (Level {{ combinatorics_level }})</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:{{ combinatorics_percent }}%"></div>
+        </div>
+        <h6>{{ combinatorics_done }}/{{ combinatorics_total }}</h6>
+        <h2>Geometry (Level {{ geometry_level }})</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:{{ geometry_percent }}%"></div>
+        </div>
+        <h6>{{ geometry_done }}/{{ geometry_total }}</h6>
+        <h2>Number Theory (Level {{ numbertheory_level }})</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width:{{ numbertheory_percent }}%"></div>
+        </div>
+        <h6>{{ numbertheory_done }}/{{ numbertheory_total }}</h6>
+    </div>
+    <div id="unitsdiv">
+        <h1><u>Your Units 📖</u></h1>
+        <ul class="list-group text-center">
+            {% for unit in units %}
+                {% if unit.done %}
+                    <li class="list-group-item"><span style="float:left;">✅</span>{{ unit.name }}<span style="float:right;"><a href="{{ unit.solutions }}">💾</a> <a href="{{ unit.link }}">📒</a></span></li>
+                {% else %}
+                    <li class="list-group-item"><span style="float:left;">▶️</span>{{ unit.name }}<span style="float:right;" class="d-flex"><form method="post" action="/submit?uid={{ unit.idx }}" class="form-inline" style="margin: 0px; padding: 0px; top: 0px;"><div class="form-group" style="margin: 0px; padding: 0px;">{% csrf_token %}<input type="hidden" name="extra_submit_param" value="extra_submit_value" style="margin: 0px; padding: 0px;"><button type="submit" name="submit_param" value="submit_value" class="btn btn-link" style="margin: 0px; padding: 0px;">➕📁</button></div></form>  <a href="{{ unit.link }}">📒</a></span></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
+
+{% else %}
+
+{% endif %}
+
+{% endblock %}
