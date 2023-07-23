@@ -1,5 +1,6 @@
 # fyz-web
 A progress tracker for people preparing for mathematical olympiads, makes problem sets more fun using gamification and is useful for keeping track of which chapters/handouts you've done.
+
 ![image](https://github.com/nixdonut/fyz-web/assets/95039994/56e119dd-0824-4fcd-8d75-b190bc6f57ea)
 
 # Setup
