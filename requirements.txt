@@ -6,12 +6,17 @@
 #
 asgiref==3.7.2
     # via django
+crispy-bootstrap4==2022.1
+    # via -r requirements.in
 django==4.2.3
     # via
     #   -r requirements.in
+    #   crispy-bootstrap4
     #   django-crispy-forms
 django-crispy-forms==2.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   crispy-bootstrap4
 sqlparse==0.4.4
     # via django
 typing-extensions==4.7.1
