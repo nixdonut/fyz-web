@@ -9,7 +9,8 @@
 	<h1>Submit</h1>
 	<form method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		{{ submit_form|crispy }}                    
+		{{ submit_form|crispy }}
+		<input type="hidden" name="uid" value=""> 
 		<button class="btn btn-primary" type="submit">Submit</button>
 	</form>
 </div>

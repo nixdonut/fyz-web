@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Unit, SUBJECT_CHOICES, SOURCE_CHOICES
 
 
 class NewUserForm(UserCreationForm):
@@ -19,4 +20,13 @@ class NewUserForm(UserCreationForm):
 
 
 class UploadFileForm(forms.Form):
+
     file = forms.FileField()
+
+class UploadUnitForm(forms.Form):
+
+	name = forms.CharField(max_length = 200)
+	subject = forms.ChoiceField(choices = SUBJECT_CHOICES)
+	source = forms.ChoiceField(choices = SOURCE_CHOICES)
+	pdf = forms.FileField()
+	solutions = forms.FileField(required = False)

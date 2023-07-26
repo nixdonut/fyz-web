@@ -1,0 +1,17 @@
+{% extends "main/header.html" %}
+
+{% block content %} 
+
+{% load crispy_forms_tags %}         
+
+<!--Add--> 
+<div class="container py-5">
+	<h1>Upload units</h1>
+	<form method="POST" enctype = "multipart/form-data">
+		{% csrf_token %}
+		{{ add_form|crispy }}                    
+		<button class="btn btn-primary" type="submit">Upload unit</button>
+	</form>
+</div>
+
+{% endblock %}

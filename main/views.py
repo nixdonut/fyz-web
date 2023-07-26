@@ -1,8 +1,8 @@
 import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import  render, redirect
-from .forms import NewUserForm, UploadFileForm
-from .models import Unit
+from .forms import NewUserForm, UploadFileForm, UploadUnitForm
+from .models import Unit, User
 from .functions import get_level, get_percent_till_next_level, get_done_level, get_total_level
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
@@ -121,3 +121,30 @@ def handle_uploaded_file(f, uid):
 	unit = Unit.objects.get(idx = uid)
 	unit.solutions = f
 	unit.save()
+
+def add_request(request):
+
+	if request.method == "POST":
+
+		form = UploadUnitForm(request.POST, request.FILES)
+		if form.is_valid():
+			data = form.cleaned_data
+			unit = Unit(
+				name = data['name'],
+				subject = data['subject'],
+				source = data['source'],
+				user = User.objects.get(id = request.GET["uid"]),
+				pdf = request.FILES["pdf"],
+			)
+			try:
+				if request.FILES["solutions"]:
+					unit.solutions = request.FILES["solutions"]
+			except: pass
+			unit.save()
+			messages.success(request, "Unit upload successful!" )
+			return redirect("main:index")
+		print(form.errors)
+		messages.error(request, "Unsuccessful upload. Invalid information.")
+
+	form = UploadUnitForm()
+	return render(request = request, template_name = "main/add.html", context = {"add_form": form})
