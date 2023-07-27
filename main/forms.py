@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Unit, SUBJECT_CHOICES, SOURCE_CHOICES
+from .models import Unit, SUBJECT_CHOICES
 
 
 class NewUserForm(UserCreationForm):
@@ -24,9 +24,23 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 class UploadUnitForm(forms.Form):
+    SOURCES_CHOICES = 0
+    with open('main/sources.txt') as f:
+        choices = []
+        for line in f:
+            value = line.strip()
+            choice = (value, value)
+            choices.append(choice)
+        SOURCES_CHOICES = tuple(choices)
+    name = forms.CharField(max_length = 200)
+    subject = forms.ChoiceField(choices = SUBJECT_CHOICES)
+    source = forms.ChoiceField(choices = SOURCES_CHOICES)
+    pdf = forms.FileField()
+    solutions = forms.FileField(required = False)
 
-	name = forms.CharField(max_length = 200)
-	subject = forms.ChoiceField(choices = SUBJECT_CHOICES)
-	source = forms.ChoiceField(choices = SOURCE_CHOICES)
-	pdf = forms.FileField()
-	solutions = forms.FileField(required = False)
+
+class NewSubjectsOrSourcesForm(forms.Form):
+
+	new_source = forms.CharField(max_length = 200, required = False)
+	
+    

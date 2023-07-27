@@ -11,9 +11,12 @@
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
       </li>
-
+      
       <li class="nav-item">
         <a class="nav-link"><form method="post" action="/add?uid={{ user.id }}" class="form-inline" style="margin: 0px; padding: 0px; top: 0px;"><div class="form-group" style="margin: 0px; padding: 0px;">{% csrf_token %}<input type="hidden" name="extra_submit_param" value="extra_submit_value" style="margin: 0px; padding: 0px;"><button type="submit" name="submit_param" value="submit_value" class="btn btn-link nav-link" style="margin: 0px; padding: 0px;">Upload units</button></div></form></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/newsources" > Add new sources</a>
       </li>
 
       <li class="nav-item">

@@ -11,4 +11,5 @@ urlpatterns = [
     path("logout", views.logout_request, name = "logout"),
     path("submit", views.submit_request, name = "submit"),
     path("add", views.add_request, name = "add"),
+    path("newsources", views.new_subjects_or_units_request, name = "newunits"),
 ]

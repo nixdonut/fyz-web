@@ -1,0 +1,17 @@
+{% extends "main/header.html" %}
+
+{% block content %} 
+
+{% load crispy_forms_tags %}         
+
+<!--Add--> 
+<div class="container py-5">
+	<h1>New sources (restart the server for an update) </h1>
+	<form method="POST" enctype = "multipart/form-data">
+		{% csrf_token %}
+		{{ add_form|crispy }}                    
+		<button class="btn btn-primary" type="submit">Add a new source</button>
+	</form>
+</div>
+
+{% endblock %}

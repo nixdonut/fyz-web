@@ -1,13 +1,14 @@
 import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import  render, redirect
-from .forms import NewUserForm, UploadFileForm, UploadUnitForm
+from .forms import NewUserForm, UploadFileForm, UploadUnitForm, NewSubjectsOrSourcesForm
 from .models import Unit, User
 from .functions import get_level, get_percent_till_next_level, get_done_level, get_total_level
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.conf import settings
+import signal, os
 
 class Unif:
 
@@ -148,3 +149,25 @@ def add_request(request):
 
 	form = UploadUnitForm()
 	return render(request = request, template_name = "main/add.html", context = {"add_form": form})
+
+
+
+def new_subjects_or_units_request(request):
+
+	if request.method == "POST":
+
+		form = NewSubjectsOrSourcesForm(request.POST)
+		if form.is_valid():
+			print("0")
+			data = form.cleaned_data
+			if data['new_source'] != "":
+			 print("00")
+			 with open("main/sources.txt", "a") as myfile:
+					myfile.write("\n" + data['new_source'])
+					
+					return redirect("main:index")
+		print(form.errors)
+		messages.error(request, "Unsuccessful upload. Invalid information.")
+
+	form = NewSubjectsOrSourcesForm()
+	return render(request = request, template_name = "main/newsources.html", context = {"add_form": form})
